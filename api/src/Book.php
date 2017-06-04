@@ -100,12 +100,12 @@ class Book implements JsonSerializable
         return false;
     }
 
-    public function update(mysqli $connection, $name, $author, $description)
+    public function update(mysqli $connection)
     {
         $id = $connection->real_escape_string($this->id);
-        $name = $connection->real_escape_string($name);
-        $author = $connection->real_escape_string($author);
-        $description = $connection->real_escape_string($description);
+        $name = $connection->real_escape_string($this->name);
+        $author = $connection->real_escape_string($this->author);
+        $description = $connection->real_escape_string($this->description);
 
         $sql = /** @lang text */
             "UPDATE books SET name = '$name', author = '$author', description = '$description' WHERE id = $id";
