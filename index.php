@@ -8,14 +8,14 @@
 </head>
 <body>
 <div>
-    <form action="api/books.php" method="post">
-        Tytuł książki:
+    <form action="api/books.php" method="POST">
+        <label>Tytuł książki:</label>
         <input type="text" name="name"/><br/><br/>
-        Imię i nazwisko autora:
+        <label>Imię i nazwisko autora:</label>
         <input type="text" name="author"/><br/><br/>
-        Opis ksiązki:
+        <label>Opis ksiązki:</label>
         <input type="text" name="description"/><br/><br/>
-        <input type="submit" value="Dodaj ksiązke"/>
+        <input type="submit" value="Dodaj książke"/>
     </form>
 </div>
 <div>

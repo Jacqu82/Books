@@ -34,22 +34,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $name = $_POST['name'];
         $author = $_POST['author'];
         $description = $_POST['description'];
+        if ((strlen($name) > 0) && (strlen($author) > 0) && (strlen($description) > 0)) {
 
-        $book = new Book();
-        $array = [];
-        if ($book->create($connection, $name, $author, $description)) {
-            $array['text'] = "Pomyślnie dodałeś książke";
-            $array['status'] = "success";
+            $book = new Book();
+            $array = [];
+            if ($book->create($connection, $name, $author, $description)) {
+                $array['text'] = "Pomyślnie dodałeś książke";
+                $array['status'] = "Success";
+            } else {
+                $array['text'] = "Błąd podczas dodawania książki";
+                $array['status'] = "Error";
+                echo json_encode($array);
+            }
         } else {
-            $array['text'] = "Błąd podczas dodawania książki";
-            $array['status'] = "add_error";
+            $array['text'] = "Wprowadź wszystkie dane";
+            $array['status'] = "Error";
             echo json_encode($array);
         }
-    } /* TODO zmodyfikować else {
-        $array['text'] = "Wprowadź wszystkie dane";
-        $array['status'] = "data_error";
-        echo json_encode($array);
-    }*/
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
@@ -68,11 +70,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         $array = [];
         if ($book->update($connection)) {
             $array['text'] = "Pomyślnie zmodyfikowałeś książkę";
-            $array['status'] = "success";
+            $array['status'] = "Success";
         } else {
             $array['text'] = "Błąd podczas modyfikacji książki";
-            $array['status'] = "add_error";
+            $array['status'] = "Error";
             echo json_encode($array);
+        }
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $book = new Book();
+        $book->loadFromDB($connection, $id);
+
+        $array = [];
+        if ($book->deleteFromDB($connection)) {
+            $array['text'] = "Pomyślnie usunołeś książkę";
+            $array['status'] = "Success";
+        } else {
+            $array['text'] = "Bład podczas usuwania książki";
+            $array['status'] = "Error";
         }
     }
 }
