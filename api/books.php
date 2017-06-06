@@ -16,14 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         echo json_encode($book);
     } else {
         $sql = /** @lang text */
-            "SELECT * FROM books";
+            "SELECT id, name FROM books";
 
         $result = $connection->query($sql);
         $books = [];
         while ($row = $result->fetch_assoc()) {
-            $book = new Book();
-            $book->loadFromDB($connection, $row['id']);
-            $books[] = $book;
+            $books[] = $row;
         }
         echo json_encode($books);
     }
@@ -41,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($book->create($connection, $name, $author, $description)) {
                 $array['text'] = "Pomyślnie dodałeś książke";
                 $array['status'] = "Success";
+                echo json_encode($array);
             } else {
                 $array['text'] = "Błąd podczas dodawania książki";
                 $array['status'] = "Error";
@@ -80,8 +79,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
+    var_dump(explode("/", substr(@$_SERVER['PATH_INFO'], 1)));
+    if (isset($_POST['id'])) {
+        $id = $_POST['id'];
         $book = new Book();
         $book->loadFromDB($connection, $id);
 
@@ -89,9 +89,11 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
         if ($book->deleteFromDB($connection)) {
             $array['text'] = "Pomyślnie usunołeś książkę";
             $array['status'] = "Success";
+            echo json_encode($array);
         } else {
             $array['text'] = "Bład podczas usuwania książki";
             $array['status'] = "Error";
+            echo json_encode($array);
         }
     }
 }

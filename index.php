@@ -8,7 +8,7 @@
 </head>
 <body>
 <div>
-    <form action="api/books.php" method="POST">
+    <form action="api/books.php" id="add-book" method="POST">
         <label>Tytuł książki:</label>
         <input type="text" name="name"/><br/><br/>
         <label>Imię i nazwisko autora:</label>
