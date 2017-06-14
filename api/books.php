@@ -73,15 +73,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         } else {
             $array['text'] = "Błąd podczas modyfikacji książki";
             $array['status'] = "Error";
-            echo json_encode($array);
         }
+        echo json_encode($array);
     }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
-    var_dump(explode("/", substr(@$_SERVER['PATH_INFO'], 1)));
-    if (isset($_POST['id'])) {
-        $id = $_POST['id'];
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
         $book = new Book();
         $book->loadFromDB($connection, $id);
 
