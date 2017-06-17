@@ -58,7 +58,7 @@ $(function () {
                     var book = JSON.parse(data);
                     var bookDetailsHtml = '<p>' +
                         book.author +
-                        ' ' +
+                        '<br/>' +
                         book.description +
                         '</p>' +
                         '<form>' +
