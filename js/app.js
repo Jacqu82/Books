@@ -10,15 +10,8 @@ $(function () {
                 // Zmienna books będzie zawierała zawartość echo json_encode($books);
                 // przekazaną do funkcji js'owej JSON.parse. Ona powoduje że ze zwykłego stringa zwracanego przez php
                 // staje się znowu tablicą obiektów, ale zrozumiałą dla języka js
-                // var books = [
-                //     {name: 'nazwa', description: 'opis'},
-                //     {name: '...', description: '...'},
-                //     // ...
-                // ];
-
                 var books = JSON.parse(data),
                     booksHtml = '<ul>';
-
                 // Funkcja forEach przyjmuje jako argument funkcję, która w 1 argumencie przyjmuje nazwę zmiennej
                 // do jakiej ma wpisywać pojedyncze wiersze z przetwarzanej zmiennej - tutaj books jest rozbijana na book
                 books.forEach(function (book) {
@@ -46,15 +39,6 @@ $(function () {
 
             $.get("api/books.php", {id: bookId})
                 .done(function (data) {
-                    // Zmienna data będzie zawierała zawartość echo json_encode($book);
-                    // przekazaną do funkcji js'owej JSON.parse. Ona powoduje że ze zwykłego stringa zwracanego przez php
-                    // staje się znowu tablicą obiektów, ale zrozumiałą dla języka js
-                    // var books = [
-                    //     {name: 'nazwa', description: 'opis'},
-                    //     {name: '...', description: '...'},
-                    //     // ...
-                    // ];
-
                     var book = JSON.parse(data);
                     var bookDetailsHtml = '<p>' +
                         book.author +
@@ -77,7 +61,6 @@ $(function () {
     $('#book-list').on('click', '.modify', function (e) {
         e.preventDefault();
         var $book = $(this).parents('.book');
-
         var bookId = $book.attr('data-id'),
             bookAuthor = $book.find('.author').val(),
             bookName = $book.find('.name').val(),
@@ -92,7 +75,6 @@ $(function () {
         })
             .done(function (response) {
                 var status = JSON.parse(response);
-
                 if (status.status === 'Success') {
                     if (status.status === 'Success') {
                         if (status.status == 'Success') {
@@ -110,9 +92,7 @@ $(function () {
         e.preventDefault();
         var $form = $(this);
         var name = $form.find('input[name=name]').val();
-
         var author = $form.find('input[name=author]').val();
-
         var description = $form.find('input[name=description]').val();
 
         $.post("api/books.php", {name: name, author: author, description: description}).done(function (data) {
@@ -137,7 +117,6 @@ $(function () {
         })
             .done(function (response) {
                 var status = JSON.parse(response);
-
                 if (status.status === 'Success') {
                     if (status.status == 'Success') {
                         dom.$bookList.html(status.text);

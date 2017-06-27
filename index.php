@@ -9,11 +9,11 @@
 <div>
     <form action="api/books.php" id="add-book" method="POST">
         <label>Tytuł książki:
-        <input type="text" name="name"/></label><br/><br/>
+            <input type="text" name="name"/></label><br/><br/>
         <label>Imię i nazwisko autora:
-        <input type="text" name="author"/></label><br/><br/>
+            <input type="text" name="author"/></label><br/><br/>
         <label>Opis ksiązki:
-        <input type="text" name="description"/></label><br/><br/>
+            <input type="text" name="description"/></label><br/><br/>
         <input type="submit" value="Dodaj książke"/>
     </form>
 </div>

@@ -6,18 +6,16 @@ include_once 'src/Book.php';
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['id'])) {
         $id = $connection->real_escape_string($_GET['id']);
-
         $sql = /** @lang text */
             "SELECT * From books WHERE id = $id";
-
         $result = $connection->query($sql);
+
         $book = new Book();
         $book->loadFromDB($connection, $id);
         echo json_encode($book);
     } else {
         $sql = /** @lang text */
             "SELECT id, name FROM books";
-
         $result = $connection->query($sql);
         $books = [];
         while ($row = $result->fetch_assoc()) {
@@ -33,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $author = $_POST['author'];
         $description = $_POST['description'];
         if ((strlen($name) > 0) && (strlen($author) > 0) && (strlen($description) > 0)) {
-
             $book = new Book();
             $array = [];
             if ($book->create($connection, $name, $author, $description)) {
@@ -81,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
+
         $book = new Book();
         $book->loadFromDB($connection, $id);
 
