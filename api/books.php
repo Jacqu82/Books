@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     if (isset($_GET['id']) && isset($_GET['name']) && isset($_GET['author']) && isset($_GET['description'])) {
-        $id = $_GET['id'];
+        $id = $connection->real_escape_string($_GET['id']);
         $name = $_GET['name'];
         $author = $_GET['author'];
         $description = $_GET['description'];
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
     if (isset($_GET['id'])) {
-        $id = $_GET['id'];
+        $id = $connection->real_escape_string($_GET['id']);
 
         $book = new Book();
         $book->loadFromDB($connection, $id);
